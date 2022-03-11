@@ -4,7 +4,7 @@
 
 # Python (and Julia) at Scale
 
-Examples in Earth Science
+Two Examples in Earth Science
 
 **Stefano Campanella**
 
