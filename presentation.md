@@ -88,9 +88,11 @@ NOTE: There are projects to integrate C++ code in Python and also limited suppor
 
 :::
 
-Preemptive multitasking: multi-threading/processing.
+### Multitasking
 
-Collaborative multitasking: aync/await, asyncIO
+Preemptive: multi-threading/processing.
+
+Collaborative: aync/await, asyncIO
 
 NOTE: Python supports natively **several types concurrency**. Among **preemptive multitasking**, it supports **multi-threading** and **multi-processing**. Cooperative multitasking is provided at language level and utilities to work with coroutines are provided both in the standard and third party libraries. When using preemptive multitasking the operating system is responsible for interrupting one thread or process and switching to another. Instead, in cooperative multi-tasking coroutines have a mechanism to suspend and resume (or, more precisely, to signal when they are available to resume) their execution. By itself, **cooperative multi-tasking does not imply parallelism**. If however the coroutines await non-blocking operations that happens in other threads or don't require the CPU (such as IO), then one can have effectively parallelism.
 
@@ -157,19 +159,21 @@ NOTE: The array **programming style allows to exploit accelerators** in a simple
 
 :::
 
-GEOTop: hydrological model, stand-alone application
+**GEOTop**: hydrological model, stand-alone application
 
-GEOtoPy: dead simple, paper-thin Python wrapper
+**GEOtoPy**: dead simple, paper-thin Python wrapper
 
 NOTE: GEOTop is a **hydrological model** focused on small catchments and mountain areas written in C and C++. It can work both as a distributed or lumped model. In my MHPC project, I used evolutionary algorithms to **calibrate GEOTop on a large distributed system** (up to 32 nodes equipped with Xeon E5-2683 v4, 2 sockets, 16 cores, 2 threads, 64GB RAM). To do that, I created a **Python wrapper that interacted with the model via writing and reading of files**. This was suboptimal, but since the simulations I worked with were CPU bounded and took each approximately 1 minute (that is, a time much larger then the writing and reading on disks), **the overhead was negligible**. **The wrapper was of course non-blocking**.
 
 :::
 
-Facebook Nevergrad: black-box optimization library
+### (Hyper)Parameter Optimization
 
-Jupyter, Papermill, Scrapbook: interactive & batch calibrations
+Facebook Nevergrad, Jupyter, Papermill, Scrapbook
 
-Running on Ulysses v2 (new SISSA cluster) using Dask, up to 32 Xeon E5-2683 v4 (1024 cpu cores)
+Interactive & batch calibrations
+
+Run on Ulysses v2 (new SISSA cluster) using Dask, up to 32 Xeon E5-2683 v4 (1024 cpu cores)
 
 NOTE: I used the evolutionary algorithms provided by the **Facebook Nevergrad** library and run the model on a cluster thanks to the **Dask** library. The calibration had two modes of operation. In the interactive mode, I run a single calibration using a Dask cluster were the **workers were spawn dynamically thanks to dask-jobqueue**. I also used **Papermill and Scrapbook** to execute batches of calibrations for profiling purposes and to investigate the optimization algorithms. Papermill and Scrapbook are two libraries by Nteract which respectively allows to **parametrize, execute and serialize objects within notebooks**.
 
@@ -179,11 +183,11 @@ NOTE: I used the evolutionary algorithms provided by the **Facebook Nevergrad** 
 
 :::
 
-Finding earthquakes in seismograms similar to template ones. 
+### High-throughput data analysis using CuPy
 
-10 years of continuous data, 50,000 templates: High-throughput data analysis using CuPy
+Finding earthquakes in seismograms similar to template ones: 10 years of continuous data, 50,000 templates.
 
-Running on Marconi 100 (CINECA): 2x16 cores IBM POWER9 AC922 at 2.6(3.1) GHz and 4 x NVIDIA Volta V100 GPUs/node, Nvlink 2.0, 16GB
+Run on Marconi 100 (CINECA): 2x16 cores IBM POWER9 AC922 at 2.6(3.1) GHz and 4 x NVIDIA Volta V100 GPUs/node, Nvlink 2.0, 16GB
 
 NOTE: At the seismological research center at OGS, I re-wrote their Python package for **earthquake template matching**. Template matching is a technique originally developed in digital image processing to find the part of an image that resemble a given template. The idea is to compute a similarity index for every possible alignment of the template with respect to the starting image. In seismology, the **template is a known earthquake** and one looks for matches within continuous data, that is seismograms. My version of the package used **CuPy to run a large scale analysis (High-throughput data analysis) on the new CINECA Marconi 100**, nodes having 2x16 cores IBM POWER9 AC922 at 2.6(3.1) GHz and 4 x NVIDIA Volta V100 GPUs/node, Nvlink 2.0, 16GB.  
 
