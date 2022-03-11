@@ -98,7 +98,7 @@ NOTE: Python supports natively **several types concurrency**. Among **preemptive
 
 :::
 
-### GIL: The Elephant in the Room
+### The GIL: The Elephant in the Room
 
 The Global Interpreter Lock is a mutex.
 
